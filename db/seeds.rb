@@ -52,3 +52,14 @@ ChatroomMessage.create(user_id: user3.id, chatroom_id: room2.id, message: 'no wa
 ChatroomMessage.create(user_id: user2.id, chatroom_id: room2.id, message: 'yes way');
 ChatroomMessage.create(user_id: user3.id, chatroom_id: room2.id, message: 'im calling the police');
 ChatroomMessage.create(user_id: user3.id, chatroom_id: room3.id, message: 'no one wants to join my chatroom T.T');
+
+Post.create(user_id: user1.id, post_title: "yoooooo", post_content: "hello world")
+Post.create(user_id: user1.id, post_title: "Nothing personal kid", post_content: "lmao")
+Post.create(user_id: user1.id, post_title: "omaewa", post_content: "shindeiru")
+Post.create(user_id: user2.id, post_title: "i love league of legends", post_content: "Veigar players > normies")
+Post.create(user_id: user2.id, post_title: "kbbq is just expensive bbq", post_content: "dont @ me")
+Post.create(user_id: user2.id, post_title: "look at me", post_content: "i am the captain now")
+Post.create(user_id: user3.id, post_title: "hey guys welcome to my profile", post_content: "lms to be rated ~<3")
+Post.create(user_id: user3.id, post_title: "top 8 friends", post_content: "none of y'all lmao")
+Post.create(user_id: user3.id, post_title: "this 1 time at band camp", post_content: "@Sk8erboi")
+
