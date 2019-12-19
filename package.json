@@ -1,0 +1,13 @@
+{
+  "name": "react-rails-heroku",
+  "license": "MIT",
+  "engines": {
+    "node": "12.11.1",
+    "yarn": "1.15.2"
+  },
+  "scripts": {
+    "build": "yarn --cwd ui install && yarn --cwd ui build",
+    "deploy": "cp -a ui/build/. public/",
+    "heroku-postbuild": "yarn build && yarn deploy"
+  }
+}
