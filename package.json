@@ -9,6 +9,6 @@
     "build": "yarn --cwd ui install && yarn --cwd ui build",
     "deploy": "cp -a ui/build/. public/",
     "heroku-postbuild": "yarn build && yarn deploy",
-    "local-server": "bundle exec rails s && yarn --cwd ui start"
+    "local": "heroku local -f Procfile.dev"
   }
 }
