@@ -1,3 +1,3 @@
-const BACKEND_URL = "http://localhost:3001"
+const BACKEND_URL = ""
 
 export {BACKEND_URL};
