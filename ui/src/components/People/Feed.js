@@ -5,7 +5,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { BACKEND_URL } from "../../config";
+import styles from './Sean.module.css';
 
 export default class MyProfile extends React.Component {
     
@@ -194,26 +196,16 @@ export default class MyProfile extends React.Component {
         console.log('hi')
     }
 
-    unfollowUser = (friend_id) => {
-        // const unfollow_user = {
-        //     "friend": {
-        //         "user_id": window.localStorage.getItem("userId"),
-        //         "friend_id": friend_id
-        //     }
-        // };
-        // const token = sessionStorage.getItem('jwt');
-        // const options = { headers: { "Authorization": "Bearer " + token } }
-        // Axios.post(BACKEND_URL + '/follow', unfollow_user, options);
-        
-        // Axios.post(
-        //     BACKEND_URL + '/follow',
-        //     {
-        //         user_id: window.localStorage.getItem("userId")
-        //         friend_id: this.state.
-
-        //         }
-        //     }
-        // )
+    unfollowUser = (unfollowed) => {
+        const query = {
+            friend: {
+                user_id: window.localStorage.getItem("userId"),
+                friend_id: unfollowed
+            }
+        };
+        const token = sessionStorage.getItem('jwt');
+        const options = { headers: { "Authorization": "Bearer " + token } }
+        Axios.post(BACKEND_URL + '/unfollow', query, options)
     }
 
     render() {
@@ -228,34 +220,38 @@ export default class MyProfile extends React.Component {
                 </Row>
                 <Row>
                     <Col md={4}>
-                        <h1>Following {this.state.following.length}</h1>
+                        <h1 className={styles.generic}>Following {this.state.following.length}</h1>
                         {this.renderList(this.state.following)}
                     </Col>
 
                     <Col md={8}>
-                        
+                        <h1 className={styles.generic}>Feed</h1>
                         <Card>
-                            <Card.Header>
-                                <Card.Title>
-                                    <input type="string" placeholder="Title"></input>
-                                </Card.Title>
-                            </Card.Header>
                             <Card.Body>
+                                <Card.Title>
+                                    <input type="string" placeholder="Title" className={styles.generic}></input>
+                                </Card.Title>
                                 <Card.Text>
-                                    <input type="string" placeholder="Content"></input>
+                                    <input type="string" placeholder="Content" className={styles.generic}></input>
                                 </Card.Text>
                             </Card.Body>
                             <Button variant="primary">Post</Button>
-
-                            <Row>
-                            <span onClick={() => this.togglePostFilterMe()}>
-                                <Button variant="outline-primary">My Posts</Button>
-                            </span>
-                            <span onClick={() => this.togglePostFilterEveryone()}>
-                                <Button variant="outline-primary">Following Posts</Button>
-                            </span>
-                            </Row>
                         </Card>
+                        
+                        <Card.Footer>
+                            <Row>
+                                <Col>
+                                    <ButtonGroup className="d-flex">
+                                        <Button variant="outline-primary" onClick={() => this.togglePostFilterMe()}>My Posts</Button>
+                                    </ButtonGroup>
+                                </Col>
+                                <Col>
+                                    <ButtonGroup className="d-flex">
+                                        <Button variant="outline-primary" onClick={() => this.togglePostFilterEveryone()}>Following Posts</Button>
+                                    </ButtonGroup>
+                                </Col>
+                            </Row>
+                        </Card.Footer>
                         {this.renderPosts()}
                     </Col>
 

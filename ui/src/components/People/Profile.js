@@ -8,6 +8,7 @@ import Col from 'react-bootstrap/Col'
 import Image from 'react-bootstrap/Image'
 import Button from 'react-bootstrap/Button'
 import { BACKEND_URL } from "../../config";
+import styles from './Sean.module.css';
 
 class Profile extends React.Component {
 
@@ -121,16 +122,9 @@ class Profile extends React.Component {
                     </Col>
 
                     <Col md={6}>
-                        <Card>
-                            <Card.Header>
-                                <h1>{profile.first_name} {profile.last_name}</h1>
-                            </Card.Header>
-                            <Card.Body>
-                                <Card.Text>@{profile.username}</Card.Text>
-                                <Card.Text>{profile.age}</Card.Text>
-                                <Card.Text>{profile.email}</Card.Text>
-                            </Card.Body>
-                        </Card>
+                        <h1 className={styles.generic}>{profile.first_name} {profile.last_name}</h1>
+                        <Card.Text className={styles.generic}>@{profile.username} | {profile.age} | {profile.email}</Card.Text>
+
                         {this.renderPosts()}
                     </Col>
 

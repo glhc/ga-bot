@@ -69,7 +69,7 @@ export default class People extends React.Component {
         };
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
-        Axios.post(BACKEND_URL + '/unfollow', query, options)
+        Axios.post(BACKEND_URL + '/follow', query, options)
     }
 
     unfollowUser = () => {
@@ -81,7 +81,7 @@ export default class People extends React.Component {
         };
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
-        Axios.post(BACKEND_URL + '/follow', query, options)
+        Axios.post(BACKEND_URL + '/unfollow', query, options)
     }
 
     render() {

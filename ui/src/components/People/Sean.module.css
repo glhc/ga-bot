@@ -1,8 +1,7 @@
 .generic {
-    border-style: solid;
-    border-color: red;
     text-align: center;
     color: black;
+    width: 100%
 }
 
 .background1 {
