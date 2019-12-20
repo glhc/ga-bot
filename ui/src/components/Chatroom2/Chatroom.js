@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import ListGroup from 'react-bootstrap/ListGroup'
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { BACKEND_URL } from "../../config";
 import styles from './Sean.module.css';
@@ -19,10 +20,15 @@ export default class Chatroom extends React.Component {
             room_info: [],
             room_users: [],
             room_messages: [],
+            input: "",
         };
     }
 
     componentDidMount() {
+        this.updateRoom(1)
+    }
+
+    updateChatroomData() {
         const token = sessionStorage.getItem('jwt');
         const customHeaders = { headers: { "Authorization": "Bearer " + token } }
         const userid = sessionStorage.getItem('userId');
@@ -39,44 +45,85 @@ export default class Chatroom extends React.Component {
         return response;
     }
 
+    onChangeHandler(e){
+        this.setState({
+            input: e.target.value,
+        });
+    }
+
     renderRooms() {
         this.list = this.state.chatrooms
             .map((item, key) =>
-                <Card>
-                    <Row>
-                        <Col>
-                            <Card.Body>
-                            <Card.Title>{item.room_name}</Card.Title>
-                            <span>
-                                <Button variant="outline-primary">Leave</Button>
-                            </span>
-                            </Card.Body>
-                        </Col>
-                    </Row>
-                </Card>
+                <span onClick={() => this.updateRoom(item.id)}>
+                    <Card className={styles.generic}>
+                        <Row>
+                            <Col>
+                                <Card.Body>
+                                <Card.Title>{item.room_name}</Card.Title>
+                                <span>
+                                    <Button variant="outline-danger">Leave</Button>
+                                </span>
+                                </Card.Body>
+                            </Col>
+                        </Row>
+                    </Card>
+                </span>
             )
         return this.list
+    }
+
+    // BROKEN
+    updateRoom(roomid) {
+        this.setState({
+            selected_room: roomid,
+        });
+        this.updateChatroomData()
+    }
+
+    // BROKEN
+    createRoom() {
+        const input = this.state.input
+        const query = {
+            chatroom: {
+                user_id: window.localStorage.getItem("userId"),
+                room_name: input,
+            }
+        };
+        const token = sessionStorage.getItem('jwt');
+        const options = { headers: { "Authorization": "Bearer " + token } }
+        Axios.post(BACKEND_URL + '/create_room', query, options)
     }
 
     renderChat() {
         this.list = this.state.room_messages
             .map((item, key) =>
-                <Card>
-                    <Row>
-                        <Card.Body>
-                            <Card.Text>{item.user_id}: {item.message}</Card.Text>
-                        </Card.Body>
-                    </Row>
-                </Card>
+                <ListGroup.Item>
+                    <Card.Text>{item.user_id}: {item.message}</Card.Text>
+                </ListGroup.Item>
             )
         return this.list
+    }
+
+    // BROKEN
+    sendMessage() {
+        const input = this.state.input
+        const query = {
+            chatroom: {
+                user_id: window.localStorage.getItem("userId"),
+                chatroom_id: this.state.selected_room,
+                message: input
+            }
+        };
+        const token = sessionStorage.getItem('jwt');
+        const options = { headers: { "Authorization": "Bearer " + token } }
+        Axios.post(BACKEND_URL + '/create_message', query, options)
     }
 
     renderParticipants() {
         this.list = this.state.room_users
             .map((item, key) =>
                 <a href={`/profile/${item.id}`}>
-                    <Card>
+                    <Card className={styles.generic}>
                         <Row>
                             <Card.Body>
                             <Card.Title>{item.first_name} {item.last_name}</Card.Title>
@@ -92,6 +139,21 @@ export default class Chatroom extends React.Component {
         return this.list
     }
 
+    // BROKEN
+    addMemmber() {
+        const input = this.state.input
+        const query = {
+            chatroom: {
+                username: input,
+                chatroom_id: this.state.selected_room,
+                is_admin: false,
+            }
+        };
+        const token = sessionStorage.getItem('jwt');
+        const options = { headers: { "Authorization": "Bearer " + token } }
+        Axios.post(BACKEND_URL + '/add_user_chatroom', query, options)
+    }
+
     render() {
         return(
             <Container>
@@ -102,45 +164,37 @@ export default class Chatroom extends React.Component {
                 <Row>
                     <Col md={3}>  
                         <h1 className={styles.generic}>Chatroom</h1>
-                        {this.renderRooms()}
+                        <Card.Header>
                             <Row>
-                                <Col>
-                                    <ButtonGroup className="d-flex">
-                                        <Button variant="outline-primary">List</Button>
-                                    </ButtonGroup>
-                                    <ButtonGroup className="d-flex">
-                                        <Button variant="outline-primary">Create</Button>
-                                    </ButtonGroup>
-                                </Col>
+                            <input className={styles.generic} type="string" placeholder="Room name" onChange={this.onChangeHandler.bind(this)}/>
+                                <Button className={styles.generic} variant="outline-primary" onClick={() => this.createRoom()}>Create Room</Button>
                             </Row>
-                            
+                        </Card.Header>
+                        {this.renderRooms()}   
                     </Col>
 
                     <Col md={6}>
                         <h1 className={styles.generic}>{this.state.room_info.room_name}</h1>
-                        
-                        {this.renderChat()}
-                        <Row>
-                            <input className={styles.generic} type="string"/>
-                            <Button className={styles.generic} variant="primary">Send</Button>
-                        </Row>
-                        
+                        <ListGroup variant="flush">
+                            {this.renderChat()}
+                        </ListGroup>
+                        <Card.Footer>
+                            <Row>
+                            <input className={styles.generic} type="string" placeholder="Message" onChange={this.onChangeHandler.bind(this)}/>
+                                <Button className={styles.generic} variant="primary" onClick={() => this.sendMessage()}>Send</Button>
+                            </Row>
+                        </Card.Footer>
                     </Col>
-
+                    
                     <Col md={3}>
                         <h1 className={styles.generic}>Members</h1>
+                        <Card.Header>
+                            <Row>
+                                <input className={styles.generic} type="string" placeholder="Username" onChange={this.onChangeHandler.bind(this)}/>
+                                <Button className={styles.generic} variant="outline-primary" onClick={() => this.addMember()}>Add to room</Button>
+                            </Row>
+                        </Card.Header>
                         {this.renderParticipants()}
-                        <Row>
-                            <Col>
-                                <ButtonGroup className="d-flex">
-                                    <Button variant="outline-primary">List</Button>
-                                </ButtonGroup>
-                                <ButtonGroup className="d-flex">
-                                    <Button variant="outline-primary">Add</Button>
-                                </ButtonGroup>
-                            </Col>
-                        </Row>
-                        
                     </Col>
                 </Row>
             </Container>
