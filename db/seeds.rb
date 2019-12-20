@@ -8,20 +8,12 @@
 
 include BCrypt
 
-# # Creates a user with a random name
-# def create_user
-#   user = User.create({
-#   first_name: Faker::Name.first_name,
-#   last_name: Faker::Name.last_name,
-#   email: "admin@ga.com"
-#   })
-# end
-
 user1 = User.create(email: 'sean@email.com', password_digest: Password.create('password'), first_name: 'Sean', last_name: 'Cooper', username: 'Godking-Overlord', age: 42);
 user2 = User.create(email: 'patrick@email.com', password_digest: Password.create('password'), first_name: 'Patrick', last_name: 'Horne', username: 'Sk8erboi', age: 420);
 user3 = User.create(email: 'seoh@email.com', password_digest: Password.create('password'), first_name: 'Se', last_name: 'Oh', username: 'President', age: 69);
 
 Friend.create(user_id: user1.id, friend_id: user2.id);
+Friend.create(user_id: user1.id, friend_id: user3.id);
 Friend.create(user_id: user2.id, friend_id: user1.id);
 Friend.create(user_id: user2.id, friend_id: user3.id);
 Friend.create(user_id: user3.id, friend_id: user2.id);
