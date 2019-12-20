@@ -25,7 +25,8 @@ export default class Chatroom extends React.Component {
     }
 
     componentDidMount() {
-        this.updateRoom(1)
+      let self = this;
+        setInterval(() =>self.updateRoom(self.state.selected_room), 2500)
     }
 
     updateChatroomData() {
@@ -117,7 +118,7 @@ export default class Chatroom extends React.Component {
         return this.list
     }
 
-    // BROKEN
+    // eyyyy
     sendMessage() {
       let self = this;
         const input = this.state.input
