@@ -20,7 +20,9 @@ export default class MyProfile extends React.Component {
             posts: [],
             my_posts: [],
             id_index: {},
-            post_filter: "everyone"
+            post_filter: "everyone",
+            input_title: "",
+            input_content: "",
         };
     }
 
@@ -40,6 +42,18 @@ export default class MyProfile extends React.Component {
             });
         })
         return response;
+    }
+
+    onChangeHandlerTitle(e){
+        this.setState({
+            input_title: e.target.value,
+        });
+    }
+
+    onChangeHandlerContent(e){
+        this.setState({
+            input_content: e.target.value,
+        });
     }
 
     useridToName() {
@@ -182,20 +196,21 @@ export default class MyProfile extends React.Component {
         }
     }
 
-    postSomething(string) {
+    //BROKEN
+    postSomething() {
         const message = {
-            "query": {
-                "user_id": window.localStorage.getItem("userId"),
-                "post_title": '',
-                "post_content": '',
+            post: {
+                user_id: window.localStorage.getItem("userId"),
+                post_title: this.state.input_title,
+                post_content: this.state.input_content,
             }
         };
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
-        Axios.post(BACKEND_URL + '/follow', message, options);
-        console.log('hi')
+        Axios.post(BACKEND_URL + '/create_post', message, options);
     }
 
+    //BROKEN
     unfollowUser = (unfollowed) => {
         const query = {
             friend: {
@@ -229,13 +244,13 @@ export default class MyProfile extends React.Component {
                         <Card>
                             <Card.Body>
                                 <Card.Title>
-                                    <input type="string" placeholder="Title" className={styles.generic}></input>
+                                    <input type="string" placeholder="Title" className={styles.generic} onChange={this.onChangeHandlerTitle.bind(this)}></input>
                                 </Card.Title>
                                 <Card.Text>
-                                    <input type="string" placeholder="Content" className={styles.generic}></input>
+                                    <input type="string" placeholder="Content" className={styles.generic} onChange={this.onChangeHandlerContent.bind(this)}></input>
                                 </Card.Text>
                             </Card.Body>
-                            <Button variant="primary">Post</Button>
+                            <Button variant="primary" onClick={() => this.postSomething()}>Post</Button>
                         </Card>
                         
                         <Card.Footer>

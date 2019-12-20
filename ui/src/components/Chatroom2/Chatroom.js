@@ -104,7 +104,7 @@ export default class Chatroom extends React.Component {
         };
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
-        Axios.post(BACKEND_URL + '/create_room', query, options)
+        Axios.post(BACKEND_URL + '/leave_room', query, options)
     }
 
     renderChat() {
