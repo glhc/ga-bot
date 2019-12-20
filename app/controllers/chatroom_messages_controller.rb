@@ -49,6 +49,6 @@ class ChatroomMessagesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def chatroom_message_params
-      params.fetch(:chatroom_message, {})
+      params.require(:chatroom_messages).permit(:user_id, :chatroom_id, :message)
     end
 end

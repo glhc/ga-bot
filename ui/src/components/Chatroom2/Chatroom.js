@@ -121,9 +121,11 @@ export default class Chatroom extends React.Component {
     sendMessage() {
         const input = this.state.input
         const query = {
-          user_id: window.sessionStorage.getItem("userId"),
-          chatroom_id: this.state.selected_room,
-          message: input
+            chatroom_messages: {
+            user_id: window.sessionStorage.getItem("userId"),
+            chatroom_id: this.state.selected_room,
+            message: input
+          }
         };
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
