@@ -1,0 +1,11 @@
+.generic {
+    border-style: solid;
+    border-color: red;
+    text-align: center;
+    color: black;
+}
+
+.background1 {
+    background-image: linear-gradient(to right, red , yellow);
+}
+

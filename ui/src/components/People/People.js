@@ -6,7 +6,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { BACKEND_URL } from "../../config";
+import styles from './Sean.module.css';
 export default class People extends React.Component {
 
     constructor(props){
@@ -106,7 +108,7 @@ export default class People extends React.Component {
             );
 
         return(
-            
+            <div>
             <Container>
                 <Row>
                     <h1>break</h1>
@@ -115,32 +117,44 @@ export default class People extends React.Component {
                     <h1>.</h1>
                 </Row>
                 <Row>
-                    <input value={this.state.input} type="text" onChange={this.onChangeHandler.bind(this)}/>
-                </Row>
-                <Row>
                     <Col md={4}>
+                        <h2 className={styles.generic}>Search: </h2>
+                        <Card>
+                            <input value={this.state.input} type="text" onChange={this.onChangeHandler.bind(this)}/>
+                        </Card>
                         {this.friends}
                     </Col>
                     <Col md={8}>
-                        <Card>
+                        <Card className={styles.generic}>
                             <a href={`/profile/${this.state.selectedUser.id}`}>
                                 <Card.Header>
                                     <h1>{this.state.selectedUser.first_name} {this.state.selectedUser.last_name}</h1>
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Title>@{this.state.selectedUser.username}</Card.Title>
-                                    <Card.Text>{this.state.selectedUser.age}</Card.Text>
-                                    <Card.Text>{this.state.selectedUser.email}</Card.Text>
+                                    <Card.Text>age: {this.state.selectedUser.age}</Card.Text>
+                                    <Card.Text>email: {this.state.selectedUser.email}</Card.Text>
                                 </Card.Body>
                             </a>
                             <Card.Footer>
-                                <Button variant="primary" onClick={() => this.followUser()}>Follow</Button>
-                                <Button variant="outline-primary" onClick={() => this.unfollowUser()}>Unfollow</Button>
+                                <Row>
+                                    <Col>
+                                        <ButtonGroup className="d-flex">
+                                            <Button variant="primary" onClick={() => this.followUser()}>Follow</Button>
+                                        </ButtonGroup>
+                                    </Col>
+                                    <Col>
+                                        <ButtonGroup className="d-flex">
+                                            <Button variant="outline-primary" onClick={() => this.unfollowUser()}>Unfollow</Button>
+                                        </ButtonGroup>
+                                    </Col>
+                                </Row>
                             </Card.Footer>
                         </Card>
                     </Col>
                 </Row>
             </Container>
+            </div>
         )
     }
 
