@@ -18,6 +18,8 @@ Rails.application.routes.draw do
   # create a message
   post '/create_message' => 'chatroom_messages#create'
 
+  post '/create_post' => 'friends#create_post'
+
 
   get '*path', to: "application#fallback_index_html", constraints: ->(request) do
       !request.xhr? && request.format.html?

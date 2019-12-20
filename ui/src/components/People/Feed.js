@@ -200,7 +200,7 @@ export default class MyProfile extends React.Component {
     postSomething() {
         const message = {
             post: {
-                user_id: window.localStorage.getItem("userId"),
+                user_id: window.sessionStorage.getItem("userId"),
                 post_title: this.state.input_title,
                 post_content: this.state.input_content,
             }

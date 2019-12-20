@@ -15,14 +15,12 @@ class FriendsController < ApplicationController
     end
 
     def follow_user
-        jinfo = params.require(:friend).permit(:user_id, :friend_id)
-        @friend = Friend.new(jinfo)
+        @friend = Friend.new(follow_params)
         @friend.save
     end
 
     def unfollow_user
-        jinfo = params.require(:friend).permit(:user_id, :friend_id)
-        @friend = Friend.where(user_id: jinfo.friend.user_id, friend_id: jinfo.friend.friend_id)
+        @friend = Friend.where(follow_params)
         @friend.each do |record|
             record.destroy
         end
@@ -88,4 +86,22 @@ class FriendsController < ApplicationController
         render json: @query
     end
 
+    def create_post
+        @post = Post.new(post_params)
+
+        if @post.save
+        else
+            render json: @post.errors, status: :unprocessable_entity
+        end
+    end
+
+    private
+
+    def follow_params
+      params.require(:friend).permit(:user_id, :friend_id)
+    end
+
+    def post_params
+        params.require(:post).permit(:user_id, :post_title, :post_content)
+    end
 end
