@@ -85,7 +85,7 @@ export default class Chatroom extends React.Component {
         const input = this.state.input
         const query = {
             chatroom: {
-                user_id: window.localStorage.getItem("userId"),
+                user_id: window.sessionStorage.getItem("userId"),
                 room_name: input,
             }
         };
@@ -98,7 +98,7 @@ export default class Chatroom extends React.Component {
     leaveRoom(input) {
         const query = {
             chatroomUser: {
-                user_id: window.localStorage.getItem("userId"),
+                user_id: window.sessionStorage.getItem("userId"),
                 chatroom_id: input,
             }
         };
@@ -121,11 +121,9 @@ export default class Chatroom extends React.Component {
     sendMessage() {
         const input = this.state.input
         const query = {
-            chatroom: {
-                user_id: window.localStorage.getItem("userId"),
-                chatroom_id: this.state.selected_room,
-                message: input
-            }
+          user_id: window.sessionStorage.getItem("userId"),
+          chatroom_id: this.state.selected_room,
+          message: input
         };
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
@@ -153,7 +151,7 @@ export default class Chatroom extends React.Component {
     }
 
     // BROKEN
-    addMemmber() {
+    addMember() {
         const input = this.state.input
         const query = {
             chatroom: {

@@ -1,8 +1,5 @@
 class ChatroomMessagesController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  protect_from_forgery with: :null_session
   before_action :authenticate_user
-  before_action :set_chatroom_message, only: [:show, :update, :destroy]
   
 
   # GET /chatroom_messages

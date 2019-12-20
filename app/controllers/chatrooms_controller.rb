@@ -1,6 +1,4 @@
 class ChatroomsController < ApplicationController
-  skip_before_action :verify_authenticity_token
-  protect_from_forgery with: :null_session
   before_action :authenticate_user
   before_action :set_chatroom, only: [:show, :edit, :update, :destroy]
 
