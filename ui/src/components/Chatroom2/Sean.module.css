@@ -1,0 +1,10 @@
+.generic {
+    text-align: center;
+    color: black;
+    width: 100%
+}
+
+.background1 {
+    background-image: linear-gradient(to right, red , yellow);
+}
+

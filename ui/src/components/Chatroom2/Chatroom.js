@@ -5,7 +5,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import { BACKEND_URL } from "../../config";
+import styles from './Sean.module.css';
 
 export default class Chatroom extends React.Component {
 
@@ -93,46 +95,52 @@ export default class Chatroom extends React.Component {
     render() {
         return(
             <Container>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
                 <Row>
-                    <h1>break</h1>
-                </Row>
-                <Row>
-                    <h1>.</h1>
-                </Row>
-                <Row>
-                    <Col md={3}>
-                        <h1>Chatroom</h1>
-                            <Row>
-                                <span>
-                                    <Button variant="outline-primary">List</Button>
-                                </span>
-                                <span>
-                                    <Button variant="outline-primary">Create</Button>
-                                </span>
-                            </Row>
+                    <Col md={3}>  
+                        <h1 className={styles.generic}>Chatroom</h1>
                         {this.renderRooms()}
+                            <Row>
+                                <Col>
+                                    <ButtonGroup className="d-flex">
+                                        <Button variant="outline-primary">List</Button>
+                                    </ButtonGroup>
+                                    <ButtonGroup className="d-flex">
+                                        <Button variant="outline-primary">Create</Button>
+                                    </ButtonGroup>
+                                </Col>
+                            </Row>
+                            
                     </Col>
 
                     <Col md={6}>
-                        <h1>{this.state.room_info.room_name}</h1>
+                        <h1 className={styles.generic}>{this.state.room_info.room_name}</h1>
+                        
                         {this.renderChat()}
                         <Row>
-                            <input type="string"/>
-                            <Button variant="primary">Send</Button>
+                            <input className={styles.generic} type="string"/>
+                            <Button className={styles.generic} variant="primary">Send</Button>
                         </Row>
+                        
                     </Col>
 
                     <Col md={3}>
-                        <h1>Members</h1>
-                        <Row>
-                            <span>
-                                <Button variant="outline-primary">List</Button>
-                            </span>
-                            <span>
-                                <Button variant="outline-primary">Add</Button>
-                            </span>
-                        </Row>
+                        <h1 className={styles.generic}>Members</h1>
                         {this.renderParticipants()}
+                        <Row>
+                            <Col>
+                                <ButtonGroup className="d-flex">
+                                    <Button variant="outline-primary">List</Button>
+                                </ButtonGroup>
+                                <ButtonGroup className="d-flex">
+                                    <Button variant="outline-primary">Add</Button>
+                                </ButtonGroup>
+                            </Col>
+                        </Row>
+                        
                     </Col>
                 </Row>
             </Container>
