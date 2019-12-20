@@ -61,7 +61,7 @@ export default class Chatroom extends React.Component {
                                 <Card.Body>
                                 <Card.Title>{item.room_name}</Card.Title>
                                 <span>
-                                    <Button variant="outline-danger">Leave</Button>
+                                    <Button variant="outline-danger" onClick={() => this.leaveRoom(item.id)}>Leave</Button>
                                 </span>
                                 </Card.Body>
                             </Col>
@@ -87,6 +87,19 @@ export default class Chatroom extends React.Component {
             chatroom: {
                 user_id: window.localStorage.getItem("userId"),
                 room_name: input,
+            }
+        };
+        const token = sessionStorage.getItem('jwt');
+        const options = { headers: { "Authorization": "Bearer " + token } }
+        Axios.post(BACKEND_URL + '/create_room', query, options)
+    }
+
+    // BROKEN
+    leaveRoom(input) {
+        const query = {
+            chatroomUser: {
+                user_id: window.localStorage.getItem("userId"),
+                chatroom_id: input,
             }
         };
         const token = sessionStorage.getItem('jwt');
