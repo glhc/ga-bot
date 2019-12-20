@@ -119,6 +119,7 @@ export default class Chatroom extends React.Component {
 
     // BROKEN
     sendMessage() {
+      let self = this;
         const input = this.state.input
         const query = {
             chatroom_messages: {
@@ -130,6 +131,9 @@ export default class Chatroom extends React.Component {
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
         Axios.post(BACKEND_URL + '/create_message', query, options)
+        .then((response) => {
+          self.updateRoom(self.state.selected_room)
+        })
     }
 
     renderParticipants() {

@@ -19,7 +19,6 @@ class ChatroomMessagesController < ApplicationController
     @chatroom_message = ChatroomMessage.new(chatroom_message_params)
 
     if @chatroom_message.save
-      render :show, status: :created, location: @chatroom_message
     else
       render json: @chatroom_message.errors, status: :unprocessable_entity
     end
