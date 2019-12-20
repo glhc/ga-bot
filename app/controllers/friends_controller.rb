@@ -17,12 +17,17 @@ class FriendsController < ApplicationController
     end
 
     def follow_user
-        @var = JSON.parse(params[:query])
-        p @var
+        jinfo = params.require(:friend).permit(:user_id, :friend_id)
+        @friend = Friend.new(jinfo)
+        @friend.save
     end
 
     def unfollow_user
-
+        jinfo = params.require(:friend).permit(:user_id, :friend_id)
+        @friend = Friend.where(user_id: jinfo.friend.user_id, friend_id: jinfo.friend.friend_id)
+        @friend.each do |record|
+            record.destroy
+        end
     end
     
     def read_profile
@@ -74,7 +79,6 @@ class FriendsController < ApplicationController
                 posts.push(post)
             end
         end
-        
         my_posts = Post.where(user_id: userid)
         @query = {
             "user": user, 
@@ -82,8 +86,7 @@ class FriendsController < ApplicationController
             "followers": followers_detail,
             "posts": posts,
             "my_posts": my_posts,
-        }
-
+    }
         render json: @query
     end
 

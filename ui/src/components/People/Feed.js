@@ -75,13 +75,9 @@ export default class MyProfile extends React.Component {
             this.list = arr
                 .map((item, key) =>
                     <Card>
-                        <Card.Header>
-                            <Card.Title>{item.post_title}</Card.Title>
-                        </Card.Header>
                         <Card.Body>
-                            <Card.Text>
-                                {item.post_content}
-                            </Card.Text>
+                            <Card.Title>{item.post_title}</Card.Title>
+                            <Card.Text>{item.post_content}</Card.Text>
                         </Card.Body>
                         <Card.Footer className="text-muted">
                             {item.created_at}
@@ -117,9 +113,7 @@ export default class MyProfile extends React.Component {
                         </Card.Header>
                         <Card.Body>
                             <Card.Title>{item.post_title}</Card.Title>
-                            <Card.Text>
-                                {item.post_content}
-                            </Card.Text>
+                            <Card.Text>{item.post_content}</Card.Text>
                         </Card.Body>
                         <Card.Footer className="text-muted">
                             {item.created_at}
@@ -186,7 +180,7 @@ export default class MyProfile extends React.Component {
         }
     }
 
-    postSomething() {
+    postSomething(string) {
         const message = {
             "query": {
                 "user_id": window.localStorage.getItem("userId"),
@@ -201,16 +195,25 @@ export default class MyProfile extends React.Component {
     }
 
     unfollowUser = (friend_id) => {
-        const unfollow_user = {
-            "query": {
-                "user_id": window.localStorage.getItem("userId"),
-                "friend_id": friend_id
-            }
-        };
-        const token = sessionStorage.getItem('jwt');
-        const options = { headers: { "Authorization": "Bearer " + token } }
-        Axios.post(BACKEND_URL + '/follow', unfollow_user, options);
-        console.log('hi')
+        // const unfollow_user = {
+        //     "friend": {
+        //         "user_id": window.localStorage.getItem("userId"),
+        //         "friend_id": friend_id
+        //     }
+        // };
+        // const token = sessionStorage.getItem('jwt');
+        // const options = { headers: { "Authorization": "Bearer " + token } }
+        // Axios.post(BACKEND_URL + '/follow', unfollow_user, options);
+        
+        // Axios.post(
+        //     BACKEND_URL + '/follow',
+        //     {
+        //         user_id: window.localStorage.getItem("userId")
+        //         friend_id: this.state.
+
+        //         }
+        //     }
+        // )
     }
 
     render() {
@@ -242,16 +245,16 @@ export default class MyProfile extends React.Component {
                                     <input type="string" placeholder="Content"></input>
                                 </Card.Text>
                             </Card.Body>
-
-                            
-
                             <Button variant="primary">Post</Button>
+
+                            <Row>
                             <span onClick={() => this.togglePostFilterMe()}>
                                 <Button variant="outline-primary">My Posts</Button>
                             </span>
                             <span onClick={() => this.togglePostFilterEveryone()}>
                                 <Button variant="outline-primary">Following Posts</Button>
                             </span>
+                            </Row>
                         </Card>
                         {this.renderPosts()}
                     </Col>

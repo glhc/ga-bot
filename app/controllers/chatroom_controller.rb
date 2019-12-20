@@ -10,7 +10,7 @@ class ChatroomController < ApplicationController
     end
 
     def read_chatroom
-        userid = 1
+        userid = params[:user]
         chatrooms = Chatroom.where(user_id: userid)
         room_id = params[:id]
         room_info = Chatroom.find_by :id => room_id

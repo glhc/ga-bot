@@ -23,10 +23,11 @@ export default class Chatroom extends React.Component {
     componentDidMount() {
         const token = sessionStorage.getItem('jwt');
         const customHeaders = { headers: { "Authorization": "Bearer " + token } }
+        const userid = sessionStorage.getItem('userId');
         const response = Axios
-        .get(BACKEND_URL + `/chatroom/${this.state.selected_room}`, customHeaders)
+        .get(BACKEND_URL + `/chatroom/${userid}/${this.state.selected_room}`, customHeaders)
         .then(res => {const query = res.data;
-            this.setState({ 
+            this.setState({
                 chatrooms: query.chatrooms,
                 room_info: query.info,
                 room_users: query.users,
@@ -36,67 +37,58 @@ export default class Chatroom extends React.Component {
         return response;
     }
 
-        renderRooms() {
-            this.list = this.state.chatrooms
-                .map((item, key) =>
+    renderRooms() {
+        this.list = this.state.chatrooms
+            .map((item, key) =>
+                <Card>
+                    <Row>
+                        <Col>
+                            <Card.Body>
+                            <Card.Title>{item.room_name}</Card.Title>
+                            <span>
+                                <Button variant="outline-primary">Leave</Button>
+                            </span>
+                            </Card.Body>
+                        </Col>
+                    </Row>
+                </Card>
+            )
+        return this.list
+    }
+
+    renderChat() {
+        this.list = this.state.room_messages
+            .map((item, key) =>
+                <Card>
+                    <Row>
+                        <Card.Body>
+                            <Card.Text>{item.user_id}: {item.message}</Card.Text>
+                        </Card.Body>
+                    </Row>
+                </Card>
+            )
+        return this.list
+    }
+
+    renderParticipants() {
+        this.list = this.state.room_users
+            .map((item, key) =>
+                <a href={`/profile/${item.id}`}>
                     <Card>
                         <Row>
-                            <Col>
-                                <Card.Body>
-                                <Card.Title>{item.room_name}</Card.Title>
-                                <Card.Text>
-                                    filler text
-                                </Card.Text>
-                                </Card.Body>
-                            </Col>
+                            <Card.Body>
+                            <Card.Title>{item.first_name} {item.last_name}</Card.Title>
+                            <Card.Text>
+                                @{item.username}
+                            </Card.Text>
+                            </Card.Body>
                         </Row>
                     </Card>
-                )
-            return this.list
-        }
-
-        renderChat() {
-            this.list = this.state.room_messages
-                .map((item, key) =>
-                    <Card>
-                        <Row>
-                            <Col>
-                                <Card.Header>
-                                    {item.user_id}
-                                </Card.Header>
-                            </Col>
-                            <Col>
-                                <Card.Body>
-                                    <Card.Text>
-                                        {item.message}
-                                    </Card.Text>
-                                </Card.Body>
-                            </Col>
-                        </Row>
-                    </Card>
-                )
-            return this.list
-        }
-
-        renderParticipants() {
-            this.list = this.state.room_users
-                .map((item, key) =>
-                    <a href={`/profile/${item.id}`}>
-                        <Card>
-                            <Row>
-                                <Card.Body>
-                                <Card.Title>{item.first_name} {item.last_name}</Card.Title>
-                                <Card.Text>
-                                    @{item.username}
-                                </Card.Text>
-                                </Card.Body>
-                            </Row>
-                        </Card>
-                    </a>
-                )
-            console.log(this.state)
-            return this.list
-        }
+                </a>
+            )
+        console.log(this.state)
+        return this.list
+    }
 
     render() {
         return(
@@ -109,7 +101,15 @@ export default class Chatroom extends React.Component {
                 </Row>
                 <Row>
                     <Col md={3}>
-                        <h1>chatroom list:</h1>
+                        <h1>Chatroom</h1>
+                            <Row>
+                                <span>
+                                    <Button variant="outline-primary">List</Button>
+                                </span>
+                                <span>
+                                    <Button variant="outline-primary">Create</Button>
+                                </span>
+                            </Row>
                         {this.renderRooms()}
                     </Col>
 
@@ -123,7 +123,15 @@ export default class Chatroom extends React.Component {
                     </Col>
 
                     <Col md={3}>
-                        <h1>chat participants</h1>
+                        <h1>Members</h1>
+                        <Row>
+                            <span>
+                                <Button variant="outline-primary">List</Button>
+                            </span>
+                            <span>
+                                <Button variant="outline-primary">Add</Button>
+                            </span>
+                        </Row>
                         {this.renderParticipants()}
                     </Col>
                 </Row>

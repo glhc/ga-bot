@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   post '/unfollow' => 'friends#unfollow_user'
 
   get '/chatrooms' => 'chatroom#read_chatrooms'
-  get '/chatroom/:id' => 'chatroom#read_chatroom'
+  get '/chatroom/:user/:id' => 'chatroom#read_chatroom'
 
 
   get '*path', to: "application#fallback_index_html", constraints: ->(request) do

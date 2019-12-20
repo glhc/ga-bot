@@ -59,29 +59,27 @@ export default class People extends React.Component {
     }
 
     followUser = () => {
-        const follow_user = {
-            "query": {
-                "user_id": window.localStorage.getItem("userId"),
-                "friend_id": this.state.selectedUser.id
+        const query = {
+            friend: {
+                user_id: window.localStorage.getItem("userId"),
+                friend_id: this.state.selectedUser.id
             }
         };
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
-        Axios.post(BACKEND_URL + '/follow', follow_user, options);
-        console.log('hi')
+        Axios.post(BACKEND_URL + '/unfollow', query, options)
     }
 
     unfollowUser = () => {
-        const unfollow_user = {
-            "query": {
-                "user_id": window.localStorage.getItem("userId"),
-                "friend_id": this.state.selectedUser.id
+        const query = {
+            friend: {
+                user_id: window.localStorage.getItem("userId"),
+                friend_id: this.state.selectedUser.id
             }
         };
         const token = sessionStorage.getItem('jwt');
         const options = { headers: { "Authorization": "Bearer " + token } }
-        Axios.post(BACKEND_URL + '/follow', unfollow_user, options);
-        console.log('hi')
+        Axios.post(BACKEND_URL + '/follow', query, options)
     }
 
     render() {

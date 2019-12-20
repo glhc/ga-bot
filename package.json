@@ -2,8 +2,8 @@
   "name": "react-rails-heroku",
   "license": "MIT",
   "engines": {
-    "node": "12.11.1",
-    "yarn": "1.19.1"
+    "node": "x.x.x",
+    "yarn": "1.x.x"
   },
   "scripts": {
     "build": "yarn --cwd ui install && yarn --cwd ui build",
