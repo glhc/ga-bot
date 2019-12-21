@@ -23,7 +23,7 @@ class ChatroomController < ApplicationController
         end
         # room_messages = ChatroomMessage.where(chatroom_id: room_id)
 
-        room_messages = ActiveRecord::Base.connection.exec_query("SELECT * FROM chatroom_messages LEFT JOIN users ON users.id = chatroom_messages.user_id WHERE chatroom_id = #{room_id}")
+        room_messages = ActiveRecord::Base.connection.exec_query("SELECT * FROM chatroom_messages LEFT JOIN users ON users.id = chatroom_messages.user_id WHERE chatroom_id = #{room_id} ORDER BY chatroom_messages.created_at")
         @query = {
             "chatrooms": chatrooms_info,
             "info": room_info,

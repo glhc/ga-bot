@@ -40,7 +40,7 @@ export default class Chatroom extends React.Component {
                 chatrooms: query.chatrooms,
                 room_info: query.info,
                 room_users: query.users,
-                room_messages: query.messages
+                room_messages: query.messages,
             });
         })
         return response;
