@@ -21,7 +21,9 @@ class ChatroomController < ApplicationController
         room_participants.each do |user| 
             room_participants_detail.push(User.find_by :id => user.id)
         end
-        room_messages = ChatroomMessage.where(chatroom_id: room_id)
+        # room_messages = ChatroomMessage.where(chatroom_id: room_id)
+
+        room_messages = ActiveRecord::Base.connection.exec_query("SELECT * FROM chatroom_messages LEFT JOIN users ON users.id = chatroom_messages.user_id WHERE chatroom_id = #{room_id}")
         @query = {
             "chatrooms": chatrooms_info,
             "info": room_info,

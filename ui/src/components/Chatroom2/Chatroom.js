@@ -112,7 +112,7 @@ export default class Chatroom extends React.Component {
         this.list = this.state.room_messages
             .map((item, key) =>
                 <ListGroup.Item>
-                    <Card.Text>{item.user_id}: {item.message}</Card.Text>
+                    <Card.Text>{item.first_name}: {item.message}</Card.Text>
                 </ListGroup.Item>
             )
         return this.list
