@@ -26,7 +26,7 @@ export default class Chatroom extends React.Component {
 
     componentDidMount() {
       let self = this;
-        setInterval(() =>self.updateRoom(self.state.selected_room), 2500)
+        this.reference = setInterval(() => self.updateRoom(self.state.selected_room), 2500)
     }
 
     updateChatroomData() {
@@ -44,6 +44,10 @@ export default class Chatroom extends React.Component {
             });
         })
         return response;
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.reference);
     }
 
     onChangeHandler(e){
