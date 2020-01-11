@@ -22,8 +22,7 @@ Bundler.require(*Rails.groups)
 module GaBot
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
-    # and config.autoloader = :classic
+    config.load_defaults 6.0 and config.autoloader = :classic
     config.action_controller.forgery_protection_origin_check = false
 
     # Settings in config/environments/* take precedence over those specified here.
