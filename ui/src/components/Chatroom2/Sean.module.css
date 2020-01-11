@@ -8,3 +8,24 @@
     background-image: linear-gradient(to right, red , yellow);
 }
 
+.f_bot_bot {
+    flex-grow: 1;
+}
+
+.f_bot {
+    display: flex;
+    text-align: center;
+    flex-grow: 0;
+    margin-bottom: 45px;
+}
+
+.d_flex {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-between;
+}
+
+.w100 {
+    width: 100%;
+}

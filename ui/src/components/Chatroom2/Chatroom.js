@@ -192,16 +192,22 @@ export default class Chatroom extends React.Component {
                     </Col>
 
                     <Col md={6}>
-                        <h1 className={styles.generic}>{this.state.room_info.room_name}</h1>
-                        <ListGroup variant="flush">
-                            {this.renderChat()}
-                        </ListGroup>
-                        <Card.Footer>
-                            <Row>
-                            <input className={styles.generic} type="string" placeholder="Message" onChange={this.onChangeHandler.bind(this)}/>
-                                <Button className={styles.generic} variant="primary" onClick={() => this.sendMessage()}>Send</Button>
-                            </Row>
-                        </Card.Footer>
+                        <div className={styles.d_flex}>
+                            <div styles={styles.f_bot_bot}>
+                                <h1 className={styles.generic}>{this.state.room_info.room_name}</h1>
+                                <ListGroup variant="flush">
+                                    {this.renderChat()}
+                                </ListGroup>
+                            </div>
+                            <div className={styles.f_bot}>
+                                <Card.Footer className={styles.w100}>
+                                    <Row>
+                                    <input className={styles.generic} type="string" placeholder="Message" onChange={this.onChangeHandler.bind(this)}/>
+                                        <Button className={styles.generic} variant="primary" onClick={() => this.sendMessage()}>Send</Button>
+                                    </Row>
+                                </Card.Footer>
+                            </div>
+                        </div>
                     </Col>
                     
                     <Col md={3}>
