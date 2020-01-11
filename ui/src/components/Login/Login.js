@@ -130,9 +130,7 @@ export default function Login(props) {
             onChange={handleChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
-          Submit
-        </button>
+        <button type="submit" className="btn btn-primary">Submit</button>
       </form>
     </StyledLogin>
   );

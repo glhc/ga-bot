@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 const StyledLogin = styled.div`
-  color: green;
+  color: black;
   margin-top: 10rem;
-  border: solid green 2px;
+  margin-left: 15%;
+  margin-right: 15%;
 
   #error-message {
     color: red;

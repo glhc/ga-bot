@@ -38,7 +38,7 @@ function NavBar(props) {
   }, []);
 
   return (
-    <Navbar collapseOnSelect expand="lg" className="navbar sticky-top">
+    <Navbar collapseOnSelect expand="sm" className="navbar sticky-top">
       <Navbar.Brand>GA_Chat</Navbar.Brand>
       <Navbar.Toggle aria-controls="responsive-navbar-nav" />
       <Navbar.Collapse id="responsive-navbar-nav">
@@ -57,8 +57,6 @@ function NavBar(props) {
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
-
-
 
       {/* <Link to="/" className="navbar-link">Home</Link>
       <Link to="/chatroom" className="navbar-link">Chat</Link>
