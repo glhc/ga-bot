@@ -111,12 +111,6 @@ export default class People extends React.Component {
             <div>
             <Container>
                 <Row>
-                    <h1>break</h1>
-                </Row>
-                <Row>
-                    <h1>.</h1>
-                </Row>
-                <Row>
                     <Col md={4}>
                         <h2 className={styles.generic}>Search: </h2>
                         <Card>

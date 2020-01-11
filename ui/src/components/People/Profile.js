@@ -110,12 +110,6 @@ class Profile extends React.Component {
         return(
             <Container>
                 <Row>
-                    <h1>break</h1>
-                </Row>
-                <Row>
-                    <h1>.</h1>
-                </Row>
-                <Row>
                     <Col md={3}>
                         <h1>Following {this.state.following.length}</h1>
                         {this.renderList(this.state.following)}

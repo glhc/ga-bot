@@ -179,10 +179,6 @@ export default class Chatroom extends React.Component {
     render() {
         return(
             <Container>
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
                 <Row>
                     <Col md={3}>  
                         <h1 className={styles.generic}>Chatroom</h1>
