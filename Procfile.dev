@@ -1,2 +1,2 @@
 web: PORT=3000 yarn --cwd ui start
-backend: bundle exec rails s -p 3001 -e production
+backend: bundle exec rails s -p 3001
