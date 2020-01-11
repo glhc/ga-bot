@@ -3,7 +3,7 @@
   "license": "MIT",
   "engines": {
     "node": "x.x.x",
-    "yarn": "1.x.x"
+    "yarn": "x.x.x"
   },
   "scripts": {
     "build": "yarn --cwd ui install && yarn --cwd ui build",
