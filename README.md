@@ -1,24 +1,10 @@
-# README
+# GA_Chat
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+An social messaging board. Allows user creation, posting to chat rooms, 
+posting to profile pages and more.
 
-Things you may want to cover:
+## Dependencies
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Ruby __2.6.5__
+- PostgreSQL __12.x__
+- Ruby on Rails __6.x__
